@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="DEV_HOME" value="logs" />
+
+    <appender name="FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/usr/local/konotor/logs/FCLoggingServiceFrontEndlog.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/usr/local/konotor/logs/archived/FCLoggingServiceFrontEndlog.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>50</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern> %-5level %X{appID} %d{yyyy-MM-dd HH:mm:ss} %logger{36} [%thread] - %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.freshworks.LoggingService" level="debug"
+            additivity="false">
+        <appender-ref ref="FILE" />
+
+    </logger>
+
+
+
+</configuration>
